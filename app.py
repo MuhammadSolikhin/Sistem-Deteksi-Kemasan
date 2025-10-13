@@ -67,14 +67,14 @@ st.markdown(
         color: black; /* Warna teks putih */
     }
     /* Tombol hapus kecil di sidebar */
-div[data-testid="stSidebar"] button[kind="secondary"] {
+    div[data-testid="stSidebar"] button[kind="secondary"] {
     background-color: #FF4B4B !important;
     color: white !important;
     border-radius: 6px !important;
     font-size: 0.8em !important;
-    padding: 3px 5px !important;
+    padding: 2px 2px !important;
 }
-div[data-testid="stSidebar"] button[kind="secondary"]:hover {
+    div[data-testid="stSidebar"] button[kind="secondary"]:hover {
     background-color: #e03e3e !important;
     color: white !important;
 }
