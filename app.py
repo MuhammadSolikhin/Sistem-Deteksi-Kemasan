@@ -98,7 +98,7 @@ if not st.session_state.logged_in:
                     st.rerun()
                 else:
                     st.error("Username atau password salah")
-
+    
 # --- HALAMAN UTAMA APLIKASI (SETELAH LOGIN) ---
 else:
     # --- SIDEBAR (SUDAH DIPERBARUI DENGAN FOTO PROFIL) ---
