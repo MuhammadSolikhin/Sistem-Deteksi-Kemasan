@@ -158,7 +158,6 @@ else:
         
         st.divider()
 
-        with st.sidebar:
     st.header("Histori Deteksi")
 
     # Cek apakah ada histori
