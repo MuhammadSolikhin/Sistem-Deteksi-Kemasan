@@ -158,34 +158,34 @@ else:
         
         st.divider()
 
-    st.header("Histori Deteksi")
+        st.header("Histori Deteksi")
 
-    # Cek apakah ada histori
-    if not st.session_state.history:
-        st.write("Belum ada histori.")
-    else:
-        # Tampilkan setiap histori dengan tombol hapus di sampingnya
-        for i, record in enumerate(reversed(st.session_state.history)):
-            col1, col2 = st.columns([3, 1])
-            with col1:
-                if st.button(f"Hasil {record['timestamp']}", key=f"lihat_{record['id']}"):
-                    st.session_state.viewing_history_id = record['id']
-                    st.session_state.detection_done = True
-            with col2:
-                # Tombol hapus kecil
-                if st.button("🗑️", key=f"hapus_{record['id']}"):
-                    st.session_state.history = [
-                        r for r in st.session_state.history if r['id'] != record['id']
-                    ]
-                    st.success(f"Histori {record['timestamp']} dihapus.")
-                    st.rerun()
+        # Cek apakah ada histori
+        if not st.session_state.history:
+            st.write("Belum ada histori.")
+        else:
+            # Tampilkan setiap histori dengan tombol hapus di sampingnya
+            for i, record in enumerate(reversed(st.session_state.history)):
+                col1, col2 = st.columns([3, 1])
+                with col1:
+                    if st.button(f"Hasil {record['timestamp']}", key=f"lihat_{record['id']}"):
+                        st.session_state.viewing_history_id = record['id']
+                        st.session_state.detection_done = True
+                with col2:
+                    # Tombol hapus kecil
+                    if st.button("🗑️", key=f"hapus_{record['id']}"):
+                        st.session_state.history = [
+                            r for r in st.session_state.history if r['id'] != record['id']
+                        ]
+                        st.success(f"Histori {record['timestamp']} dihapus.")
+                        st.rerun()
 
-    st.write("---")
+        st.write("---")
 
-    if st.button("Logout"):
-        for key in list(st.session_state.keys()):
-            del st.session_state[key]
-        st.rerun()
+        if st.button("Logout"):
+            for key in list(st.session_state.keys()):
+                del st.session_state[key]
+            st.rerun()
 
 
     # --- KONTEN UTAMA (SUDAH DIPERBARUI DENGAN HEADING BARU) ---
