@@ -21,23 +21,23 @@ st.markdown(
         color: white;
     }
 
-    /* Mengatur font dan perataan tengah untuk judul utama APLIKASI */
+    /* Mengatur font dan perataan tengah untuk judul utama */
     .main-title {
         text-align: center;
         color: #1a751a; /* Warna hijau */
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-        font-size: 2.5em; 
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Contoh font */
+        font-size: 2.5em; /* Ukuran font lebih besar */
         font-weight: bold;
-        margin-bottom: 0px; 
+        margin-bottom: 0px; /* Kurangi margin bawah */
     }
 
-    /* Mengatur perataan tengah untuk sub-heading/deskripsi APLIKASI */
+    /* Mengatur perataan tengah untuk sub-heading/deskripsi */
     .main-description {
         text-align: center;
         color: #555555;
         font-size: 1.1em;
-        margin-top: 5px;
-        margin-bottom: 30px; 
+        margin-top: 5px; /* Sedikit jarak dari judul */
+        margin-bottom: 30px; /* Jarak yang cukup ke konten berikutnya */
     }
 
     /* CSS untuk placeholder profil di sidebar */
@@ -47,97 +47,25 @@ st.markdown(
         align-items: center;
     }
     .profile-image-frame {
-        width: 100px; 
-        height: 100px; 
-        border-radius: 50%; 
-        overflow: hidden; 
+        width: 100px; /* Lebar frame */
+        height: 100px; /* Tinggi frame */
+        border-radius: 50%; /* Membuat lingkaran */
+        overflow: hidden; /* Memastikan gambar tidak keluar dari lingkaran */
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #5C6F87; 
+        background-color: #5C6F87; /* Warna latar belakang lingkaran */
     }
     .profile-image-frame img {
-        width: 60px; 
+        width: 60px; /* Ukuran ikon user */
         height: 60px;
-        filter: invert(100%) brightness(150%);
+        filter: invert(100%) brightness(150%); /* Membuat ikon putih */
     }
     .profile-name {
         font-size: 1.2em;
         font-weight: bold;
-        color: black; 
+        color: black; /* Warna teks putih */
     }
-    
-    /* --- CSS BARU UNTUK HALAMAN LOGIN SESUAI GAMBAR --- */
-    
-    /* Container/Card Login */
-    .login-card {
-        padding: 30px 40px; /* Padding lebih besar */
-        border-radius: 20px; 
-        /* Hapus border dan bayangan, gunakan bayangan yang lebih halus */
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Bayangan yang lebih menonjol */
-        border: 1px solid #eeeeee;
-        background-color: white;
-        width: 100%; 
-        max-width: 400px; 
-        margin: auto;
-    }
-
-    /* Judul Utama Login (di dalam card) */
-    .login-title {
-        text-align: center;
-        font-size: 2.5em; /* Ukuran font lebih sesuai */
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #333333;
-    }
-
-    /* Subtitle Login (di dalam card) */
-    .login-subtitle {
-        text-align: center;
-        font-size: 1em;
-        margin-top: 0;
-        margin-bottom: 30px;
-        color: #666666;
-    }
-    
-    /* Mengatur border-radius untuk input teks di form */
-    /* Menghilangkan label di atas input */
-    .stTextInput label {
-        display: none;
-    }
-
-    /* Mengatur border-radius dan padding untuk input teks */
-    .stTextInput div > div {
-        border-radius: 10px; /* Sudut input membulat */
-        padding: 5px 10px; /* Padding agar input terlihat lebih tebal */
-    }
-
-    /* Mengubah warna tombol login sesuai wireframe (tosca/hijau muda) */
-    .stButton button[kind="primary"] {
-        background-color: #92b8af; /* Warna tosca/hijau muda */
-        color: white;
-        border-radius: 10px; /* Sudut tombol membulat */
-        border: none;
-        padding: 10px;
-        font-weight: bold;
-        transition: background-color 0.2s;
-    }
-    .stButton button[kind="primary"]:hover {
-        background-color: #7da398; /* Warna saat di-hover */
-    }
-
-    /* Mengatur perataan tengah untuk form */
-    .stForm {
-        display: flex;
-        flex-direction: column;
-        gap: 15px; /* Jarak antar elemen form */
-    }
-
-    /* Mengatasi padding kosong di atas card */
-    [data-testid="stVerticalBlock"] > div:first-child {
-        padding-top: 0 !important;
-    }
-    
     </style>
     """,
     unsafe_allow_html=True,
@@ -168,43 +96,26 @@ if 'viewing_history_id' not in st.session_state:
 
 # --- HALAMAN LOGIN ---
 if not st.session_state.logged_in:
-    
-    # Memberi jarak vertikal agar form berada di tengah
-    st.markdown("<br>" * 3, unsafe_allow_html=True)
-    
-    # Menggunakan kolom untuk memusatkan card
+    # (Bagian login tidak berubah)
     col1, col2, col3 = st.columns([1, 2, 1])
-    
     with col2:
-        # Terapkan container card
-        st.markdown('<div class="login-card">', unsafe_allow_html=True)
-        
-        # Judul dan Subjudul berada di dalam card
-        st.markdown('<h1 class="login-title">Login</h1>', unsafe_allow_html=True)
-        st.markdown('<p class="login-subtitle">Sistem Deteksi Cacat Kemasan</p>', unsafe_allow_html=True)
-        
-        # Form berada di dalam card, di bawah judul dan subjudul
+        st.markdown("<br><br><br>", unsafe_allow_html=True)
+        st.title("Login")
+        st.subheader("Sistem Deteksi Cacat Kemasan")
         with st.form("login_form"):
-            # Input dengan placeholder dan label disembunyikan
-            username = st.text_input("username", label_visibility="hidden", placeholder="username")
-            password = st.text_input("password", type="password", label_visibility="hidden", placeholder="password")
-            
-            # Tombol login dengan tipe "primary" untuk menerapkan style warna tosca
-            login_button = st.form_submit_button("login", type="primary", use_container_width=True)
-            
+            username = st.text_input("Username")
+            password = st.text_input("Password", type="password")
+            login_button = st.form_submit_button("Login", use_container_width=True)
             if login_button:
                 if username == "user" and password == "password":
                     st.session_state.logged_in = True
                     st.rerun()
                 else:
                     st.error("Username atau password salah")
-                    
-        # Tutup container card
-        st.markdown('</div>', unsafe_allow_html=True)
 
 # --- HALAMAN UTAMA APLIKASI (SETELAH LOGIN) ---
 else:
-    # --- SIDEBAR (TIDAK BERUBAH) ---
+    # --- SIDEBAR (SUDAH DIPERBARUI DENGAN FOTO PROFIL) ---
     with st.sidebar:
         # Foto Profil Placeholder
         st.markdown(
@@ -250,17 +161,17 @@ else:
                 st.rerun()
         
         st.write("") 
-        # Tombol Logout menggunakan style default Streamlit yang diganti di CSS menjadi merah
         if st.button("Logout"):
             for key in st.session_state.keys():
                 del st.session_state[key]
             st.rerun()
 
-    # --- KONTEN UTAMA (TIDAK BERUBAH) ---
+    # --- KONTEN UTAMA (SUDAH DIPERBARUI DENGAN HEADING BARU) ---
     if st.session_state.viewing_history_id is not None:
+        # (Detail histori tidak berubah, hanya judulnya akan mengikuti gaya CSS)
         history_record = next((h for h in st.session_state.history if h['id'] == st.session_state.viewing_history_id), None)
         if history_record:
-            st.markdown(f"<h1 class='main-title'>DETAIL HISTORI</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h1 class='main-title'>DETAIL HISTORI</h1>", unsafe_allow_html=True) # Gunakan class main-title
             st.markdown(f"<p class='main-description'>Hasil deteksi dari {history_record['timestamp']}</p>", unsafe_allow_html=True)
             st.divider()
             st.subheader("Hasil Foto")
@@ -276,6 +187,7 @@ else:
         else:
             st.error("Data histori tidak ditemukan.")
     elif not st.session_state.detection_done:
+        # Heading baru untuk halaman deteksi
         st.markdown("<h1 class='main-title'>SISTEM DETEKSI CACAT KEMASAN</h1>", unsafe_allow_html=True)
         st.markdown("<p class='main-description'>Upload gambar atau ambil foto untuk melakukan deteksi kemasan.</p>", unsafe_allow_html=True)
         
@@ -321,6 +233,7 @@ else:
             else:
                 st.warning("Mohon upload atau ambil gambar terlebih dahulu.")
     else:
+        # Heading baru untuk halaman hasil deteksi
         st.markdown("<h1 class='main-title'>HASIL DETEKSI</h1>", unsafe_allow_html=True)
         st.markdown(f"<p class='main-description'>Ringkasan hasil deteksi pada {datetime.datetime.now().strftime('%d-%m-%Y')}</p>", unsafe_allow_html=True)
         st.divider()
