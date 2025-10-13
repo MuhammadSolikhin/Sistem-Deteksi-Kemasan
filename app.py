@@ -21,23 +21,23 @@ st.markdown(
         color: white;
     }
 
-    /* Mengatur font dan perataan tengah untuk judul utama */
+    /* Mengatur font dan perataan tengah untuk judul utama APLIKASI */
     .main-title {
         text-align: center;
         color: #1a751a; /* Warna hijau */
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Contoh font */
-        font-size: 2.5em; /* Ukuran font lebih besar */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        font-size: 2.5em; 
         font-weight: bold;
-        margin-bottom: 0px; /* Kurangi margin bawah */
+        margin-bottom: 0px; 
     }
 
-    /* Mengatur perataan tengah untuk sub-heading/deskripsi */
+    /* Mengatur perataan tengah untuk sub-heading/deskripsi APLIKASI */
     .main-description {
         text-align: center;
         color: #555555;
         font-size: 1.1em;
-        margin-top: 5px; /* Sedikit jarak dari judul */
-        margin-bottom: 30px; /* Jarak yang cukup ke konten berikutnya */
+        margin-top: 5px;
+        margin-bottom: 30px; 
     }
 
     /* CSS untuk placeholder profil di sidebar */
@@ -47,25 +47,99 @@ st.markdown(
         align-items: center;
     }
     .profile-image-frame {
-        width: 100px; /* Lebar frame */
-        height: 100px; /* Tinggi frame */
-        border-radius: 50%; /* Membuat lingkaran */
-        overflow: hidden; /* Memastikan gambar tidak keluar dari lingkaran */
+        width: 100px; 
+        height: 100px; 
+        border-radius: 50%; 
+        overflow: hidden; 
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #5C6F87; /* Warna latar belakang lingkaran */
+        background-color: #5C6F87; 
     }
     .profile-image-frame img {
-        width: 60px; /* Ukuran ikon user */
+        width: 60px; 
         height: 60px;
-        filter: invert(100%) brightness(150%); /* Membuat ikon putih */
+        filter: invert(100%) brightness(150%);
     }
     .profile-name {
         font-size: 1.2em;
         font-weight: bold;
-        color: black; /* Warna teks putih */
+        color: black; 
     }
+    
+    /* --- CSS BARU UNTUK HALAMAN LOGIN SESUAI GAMBAR --- */
+    
+    /* Container/Card Login */
+    .login-card {
+        padding: 30px 40px;
+        border-radius: 20px; 
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 1px solid #eeeeee;
+        background-color: white;
+        width: 100%; 
+        max-width: 400px; 
+        margin: auto;
+    }
+
+    /* Judul Utama Login (di dalam card) */
+    .login-title {
+        text-align: center;
+        font-size: 2.5em;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333333;
+    }
+
+    /* Subtitle Login (di dalam card) */
+    .login-subtitle {
+        text-align: center;
+        font-size: 1em;
+        margin-top: 0;
+        margin-bottom: 30px;
+        color: #666666;
+    }
+    
+    /* Menghilangkan label di atas input default Streamlit */
+    /* st.text_input label {
+        display: none;
+    } */
+
+    /* Mengubah tampilan input: agar lebih bulat dan rapi */
+    .stTextInput div > div {
+        border-radius: 10px; /* Sudut input membulat */
+        /* Anda bisa menambahkan padding di sini jika ingin inputnya lebih tebal,
+           tapi untuk mengikuti style gambar, kita hanya fokus pada border-radius */
+    }
+
+    /* Mengubah warna tombol login menjadi HIJAU (seperti di main-title) */
+    .stForm .stButton button {
+        background-color: #1a751a; /* Warna hijau solid */
+        color: white;
+        border-radius: 10px; /* Sudut tombol membulat */
+        border: none;
+        padding: 10px;
+        font-weight: bold;
+        transition: background-color 0.2s;
+    }
+    .stForm .stButton button:hover {
+        background-color: #155e15; /* Hijau yang lebih gelap saat di-hover */
+    }
+
+    /* Mengatur perataan tengah untuk form */
+    .stForm {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Mengatasi padding kosong di atas card */
+    [data-testid="stVerticalBlock"] > div:first-child {
+        padding-top: 0 !important;
+    }
+    
+    /* Mengubah style input dari default agar sesuai gambar (label di dalam form, bukan di luar) */
+    /* Kita akan menggunakan input dengan label default Streamlit, tapi kita akan mengatur style-nya di bagian python */
+    
     </style>
     """,
     unsafe_allow_html=True,
@@ -96,26 +170,46 @@ if 'viewing_history_id' not in st.session_state:
 
 # --- HALAMAN LOGIN ---
 if not st.session_state.logged_in:
-    # (Bagian login tidak berubah)
+    
+    # Memberi jarak vertikal agar form berada di tengah
+    st.markdown("<br>" * 3, unsafe_allow_html=True)
+    
+    # Menggunakan kolom untuk memusatkan card
     col1, col2, col3 = st.columns([1, 2, 1])
+    
     with col2:
-        st.markdown("<br><br><br>", unsafe_allow_html=True)
-        st.title("Login")
-        st.subheader("Sistem Deteksi Cacat Kemasan")
+        # Terapkan container card
+        st.markdown('<div class="login-card">', unsafe_allow_html=True)
+        
+        # Judul dan Subjudul berada di dalam card
+        # Menggunakan class CSS untuk mengatur perataan tengah dan font
+        st.markdown('<h1 class="login-title">Login</h1>', unsafe_allow_html=True)
+        st.markdown('<p class="login-subtitle">Sistem Deteksi Cacat Kemasan</p>', unsafe_allow_html=True)
+        
+        # Form berada di dalam card
         with st.form("login_form"):
+            # Input menggunakan label default Streamlit untuk tampilan minimalis di gambar
+            # Streamlit akan menampilkan label di atas input secara default (sesuai gambar terbaru)
             username = st.text_input("Username")
             password = st.text_input("Password", type="password")
+            
+            # Tombol login. Kita hapus type="primary" dan biarkan CSS kustom di atas mengambil alih
+            # agar style kustom kita yang diterapkan
             login_button = st.form_submit_button("Login", use_container_width=True)
+            
             if login_button:
                 if username == "user" and password == "password":
                     st.session_state.logged_in = True
                     st.rerun()
                 else:
                     st.error("Username atau password salah")
+                    
+        # Tutup container card
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # --- HALAMAN UTAMA APLIKASI (SETELAH LOGIN) ---
 else:
-    # --- SIDEBAR (SUDAH DIPERBARUI DENGAN FOTO PROFIL) ---
+    # --- SIDEBAR (TIDAK BERUBAH) ---
     with st.sidebar:
         # Foto Profil Placeholder
         st.markdown(
@@ -166,12 +260,11 @@ else:
                 del st.session_state[key]
             st.rerun()
 
-    # --- KONTEN UTAMA (SUDAH DIPERBARUI DENGAN HEADING BARU) ---
+    # --- KONTEN UTAMA (TIDAK BERUBAH) ---
     if st.session_state.viewing_history_id is not None:
-        # (Detail histori tidak berubah, hanya judulnya akan mengikuti gaya CSS)
         history_record = next((h for h in st.session_state.history if h['id'] == st.session_state.viewing_history_id), None)
         if history_record:
-            st.markdown(f"<h1 class='main-title'>DETAIL HISTORI</h1>", unsafe_allow_html=True) # Gunakan class main-title
+            st.markdown(f"<h1 class='main-title'>DETAIL HISTORI</h1>", unsafe_allow_html=True)
             st.markdown(f"<p class='main-description'>Hasil deteksi dari {history_record['timestamp']}</p>", unsafe_allow_html=True)
             st.divider()
             st.subheader("Hasil Foto")
@@ -187,7 +280,6 @@ else:
         else:
             st.error("Data histori tidak ditemukan.")
     elif not st.session_state.detection_done:
-        # Heading baru untuk halaman deteksi
         st.markdown("<h1 class='main-title'>SISTEM DETEKSI CACAT KEMASAN</h1>", unsafe_allow_html=True)
         st.markdown("<p class='main-description'>Upload gambar atau ambil foto untuk melakukan deteksi kemasan.</p>", unsafe_allow_html=True)
         
@@ -233,7 +325,6 @@ else:
             else:
                 st.warning("Mohon upload atau ambil gambar terlebih dahulu.")
     else:
-        # Heading baru untuk halaman hasil deteksi
         st.markdown("<h1 class='main-title'>HASIL DETEKSI</h1>", unsafe_allow_html=True)
         st.markdown(f"<p class='main-description'>Ringkasan hasil deteksi pada {datetime.datetime.now().strftime('%d-%m-%Y')}</p>", unsafe_allow_html=True)
         st.divider()
