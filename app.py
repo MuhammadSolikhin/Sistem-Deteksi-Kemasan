@@ -10,46 +10,61 @@ st.set_page_config(layout="wide", page_title="Sistem Deteksi Cacat Kemasan")
 st.markdown(
     """
     <style>
+    /* Mengatur lebar sidebar */
+    [data-testid="stSidebar"] {
+        width: 250px !important;
+    }
+    
+    /* Mengubah warna tombol terakhir di sidebar menjadi merah (tombol logout) */
+    [data-testid="stSidebar"] .stButton:last-child button {
+        background-color: #FF4B4B;
+        color: white;
+    }
+
     /* Mengatur font dan perataan tengah untuk judul utama */
     .main-title {
         text-align: center;
-        color: #1a751a;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 2.5em;
+        color: #1a751a; /* Warna hijau */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Contoh font */
+        font-size: 2.5em; /* Ukuran font lebih besar */
         font-weight: bold;
-        margin-bottom: 0px;
+        margin-bottom: 0px; /* Kurangi margin bawah */
     }
 
+    /* Mengatur perataan tengah untuk sub-heading/deskripsi */
     .main-description {
         text-align: center;
         color: #555555;
         font-size: 1.1em;
-        margin-top: 5px;
-        margin-bottom: 30px;
+        margin-top: 5px; /* Sedikit jarak dari judul */
+        margin-bottom: 30px; /* Jarak yang cukup ke konten berikutnya */
     }
 
-    /* Warna tombol login merah */
-    div.stButton > button:first-child {
-        background-color: #FF4B4B;
-        color: white;
-        border: none;
-        border-radius: 5px;
+    /* CSS untuk placeholder profil di sidebar */
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile-image-frame {
+        width: 100px; /* Lebar frame */
+        height: 100px; /* Tinggi frame */
+        border-radius: 50%; /* Membuat lingkaran */
+        overflow: hidden; /* Memastikan gambar tidak keluar dari lingkaran */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #5C6F87; /* Warna latar belakang lingkaran */
+    }
+    .profile-image-frame img {
+        width: 60px; /* Ukuran ikon user */
+        height: 60px;
+        filter: invert(100%) brightness(150%); /* Membuat ikon putih */
+    }
+    .profile-name {
+        font-size: 1.2em;
         font-weight: bold;
-    }
-    div.stButton > button:first-child:hover {
-        background-color: #e03e3e;
-        color: white;
-    }
-
-    /* Hilangkan card form (background kotak abu-abu) */
-    .stTextInput > div > div > input {
-        background-color: #f5f5f5 !important;
-    }
-    [data-testid="stForm"] {
-        background: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0px !important;
+        color: black; /* Warna teks putih */
     }
     </style>
     """,
@@ -81,24 +96,23 @@ if 'viewing_history_id' not in st.session_state:
 
 # --- HALAMAN LOGIN ---
 if not st.session_state.logged_in:
+    # (Bagian login tidak berubah)
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("<br><br><br>", unsafe_allow_html=True)
         st.title("Login")
         st.subheader("Sistem Deteksi Cacat Kemasan")
-
-        with st.form("login_form", clear_on_submit=False):
+        with st.form("login_form"):
             username = st.text_input("Username")
             password = st.text_input("Password", type="password")
             login_button = st.form_submit_button("Login", use_container_width=True)
-
             if login_button:
                 if username == "user" and password == "password":
                     st.session_state.logged_in = True
                     st.rerun()
                 else:
                     st.error("Username atau password salah")
-    
+
 # --- HALAMAN UTAMA APLIKASI (SETELAH LOGIN) ---
 else:
     # --- SIDEBAR (SUDAH DIPERBARUI DENGAN FOTO PROFIL) ---
