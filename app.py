@@ -66,15 +66,6 @@ st.markdown(
         font-weight: bold;
         color: black; /* Warna teks putih */
     }
-    /* Tombol hapus kecil di histori */
-    div[data-testid="stSidebar"] button[kind="secondary"] {
-    background-color: #FF4B4B !important;
-    color: white !important;
-    border-radius: 5px !important;
-    font-size: 0.8em !important;
-    padding: 3px 5px !important;
-}
-
     </style>
     """,
     unsafe_allow_html=True,
@@ -155,47 +146,25 @@ else:
         st.divider()
 
         st.header("Histori Deteksi")
-
-# Jika belum ada histori
-if not st.session_state.history:
-    st.write("Belum ada histori.")
-else:
-    # Tampilkan daftar histori
-    for i, record in enumerate(reversed(st.session_state.history)):
-        cols = st.columns([2, 1])
-        with cols[0]:
-            if st.button(f"Hasil {record['timestamp']}", key=f"history_{i}"):
-                st.session_state.viewing_history_id = record['id']
-                st.session_state.detection_done = True
-        with cols[1]:
-            # Tombol hapus kecil warna merah
-            hapus_key = f"hapus_{record['id']}"
-            if st.button("🗑️", key=hapus_key):
-                st.session_state.history = [
-                    r for r in st.session_state.history if r['id'] != record['id']
-                ]
-                st.success(f"Histori {record['timestamp']} dihapus.")
+        if not st.session_state.history:
+            st.write("Belum ada histori.")
+        else:
+            for i, record in enumerate(reversed(st.session_state.history)):
+                if st.button(f"Hasil {record['timestamp']}", key=f"history_{i}"):
+                    st.session_state.viewing_history_id = record['id']
+                    st.session_state.detection_done = True 
+        
+        if st.session_state.viewing_history_id is not None:
+            if st.button("Lakukan Deteksi Baru", type="primary"):
+                st.session_state.viewing_history_id = None
+                st.session_state.detection_done = False
                 st.rerun()
-
-    # Tombol hapus semua histori
-    st.write("")
-    if st.button("🧹 Hapus Semua Histori", key="hapus_semua"):
-        st.session_state.history.clear()
-        st.success("Semua histori berhasil dihapus.")
-        st.rerun()
-
-# Tombol untuk melakukan deteksi baru
-if st.session_state.viewing_history_id is not None:
-    if st.button("Lakukan Deteksi Baru", type="primary"):
-        st.session_state.viewing_history_id = None
-        st.session_state.detection_done = False
-        st.rerun()
-
-st.write("")
-if st.button("Logout"):
-    for key in st.session_state.keys():
-        del st.session_state[key]
-    st.rerun()
+        
+        st.write("") 
+        if st.button("Logout"):
+            for key in st.session_state.keys():
+                del st.session_state[key]
+            st.rerun()
 
     # --- KONTEN UTAMA (SUDAH DIPERBARUI DENGAN HEADING BARU) ---
     if st.session_state.viewing_history_id is not None:
