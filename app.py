@@ -15,7 +15,7 @@ st.markdown(
         width: 250px !important;
     }
     
-    /* Mengubah warna tombol terakhir di sidebar menjadi hitam (tombol logout) */
+    /* Mengubah warna tombol terakhir di sidebar menjadi merah (tombol logout) */
     [data-testid="stSidebar"] .stButton:last-child button {
         background-color: #FF4B4B;
         color: white;
@@ -25,8 +25,8 @@ st.markdown(
     .main-title {
         text-align: center;
         color: #1a751a; /* Warna hijau */
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Contoh font */
-        font-size: 2.5em; /* Ukuran font lebih besar */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        font-size: 2.5em; 
         font-weight: bold;
         margin-bottom: 0px; 
     }
@@ -71,40 +71,48 @@ st.markdown(
     
     /* Container/Card Login */
     .login-card {
-        padding: 30px;
-        border-radius: 20px; /* Sudut membulat */
-        border: 1px solid #ddd;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+        padding: 30px 40px; /* Padding lebih besar */
+        border-radius: 20px; 
+        /* Hapus border dan bayangan, gunakan bayangan yang lebih halus */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Bayangan yang lebih menonjol */
+        border: 1px solid #eeeeee;
         background-color: white;
-        width: 100%; /* Agar bisa diatur lebarnya oleh col2 */
-        max-width: 400px; /* Lebar maksimum card */
+        width: 100%; 
+        max-width: 400px; 
         margin: auto;
     }
 
-    /* Judul Utama Login */
+    /* Judul Utama Login (di dalam card) */
     .login-title {
         text-align: center;
-        font-size: 3em; /* Ukuran font lebih besar */
-        font-weight: 500;
+        font-size: 2.5em; /* Ukuran font lebih sesuai */
+        font-weight: bold;
         margin-bottom: 5px;
         color: #333333;
     }
 
-    /* Subtitle Login */
+    /* Subtitle Login (di dalam card) */
     .login-subtitle {
         text-align: center;
-        font-size: 1.1em;
+        font-size: 1em;
         margin-top: 0;
-        margin-bottom: 25px;
-        color: #555555;
+        margin-bottom: 30px;
+        color: #666666;
     }
     
     /* Mengatur border-radius untuk input teks di form */
-    .stTextInput div > div {
-        border-radius: 10px; /* Sudut input membulat */
+    /* Menghilangkan label di atas input */
+    .stTextInput label {
+        display: none;
     }
 
-    /* Mengubah warna tombol login */
+    /* Mengatur border-radius dan padding untuk input teks */
+    .stTextInput div > div {
+        border-radius: 10px; /* Sudut input membulat */
+        padding: 5px 10px; /* Padding agar input terlihat lebih tebal */
+    }
+
+    /* Mengubah warna tombol login sesuai wireframe (tosca/hijau muda) */
     .stButton button[kind="primary"] {
         background-color: #92b8af; /* Warna tosca/hijau muda */
         color: white;
@@ -112,13 +120,22 @@ st.markdown(
         border: none;
         padding: 10px;
         font-weight: bold;
+        transition: background-color 0.2s;
     }
-    
+    .stButton button[kind="primary"]:hover {
+        background-color: #7da398; /* Warna saat di-hover */
+    }
+
     /* Mengatur perataan tengah untuk form */
     .stForm {
         display: flex;
         flex-direction: column;
         gap: 15px; /* Jarak antar elemen form */
+    }
+
+    /* Mengatasi padding kosong di atas card */
+    [data-testid="stVerticalBlock"] > div:first-child {
+        padding-top: 0 !important;
     }
     
     </style>
@@ -152,24 +169,24 @@ if 'viewing_history_id' not in st.session_state:
 # --- HALAMAN LOGIN ---
 if not st.session_state.logged_in:
     
-    # Memastikan card login berada di tengah vertikal dengan beberapa br
-    st.markdown("<br>" * 5, unsafe_allow_html=True)
+    # Memberi jarak vertikal agar form berada di tengah
+    st.markdown("<br>" * 3, unsafe_allow_html=True)
     
     # Menggunakan kolom untuk memusatkan card
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
-        # Menerapkan card login dengan CSS khusus
+        # Terapkan container card
         st.markdown('<div class="login-card">', unsafe_allow_html=True)
         
-        # Judul dan Subjudul menggunakan class CSS baru
+        # Judul dan Subjudul berada di dalam card
         st.markdown('<h1 class="login-title">Login</h1>', unsafe_allow_html=True)
         st.markdown('<p class="login-subtitle">Sistem Deteksi Cacat Kemasan</p>', unsafe_allow_html=True)
         
+        # Form berada di dalam card, di bawah judul dan subjudul
         with st.form("login_form"):
-            # st.text_input label diubah menjadi huruf kecil dan tanpa titik dua
+            # Input dengan placeholder dan label disembunyikan
             username = st.text_input("username", label_visibility="hidden", placeholder="username")
-            # TIPOGRAFI diperbaiki dari 'passowrd' menjadi 'password'
             password = st.text_input("password", type="password", label_visibility="hidden", placeholder="password")
             
             # Tombol login dengan tipe "primary" untuk menerapkan style warna tosca
@@ -182,6 +199,7 @@ if not st.session_state.logged_in:
                 else:
                     st.error("Username atau password salah")
                     
+        # Tutup container card
         st.markdown('</div>', unsafe_allow_html=True)
 
 # --- HALAMAN UTAMA APLIKASI (SETELAH LOGIN) ---
@@ -232,6 +250,7 @@ else:
                 st.rerun()
         
         st.write("") 
+        # Tombol Logout menggunakan style default Streamlit yang diganti di CSS menjadi merah
         if st.button("Logout"):
             for key in st.session_state.keys():
                 del st.session_state[key]
