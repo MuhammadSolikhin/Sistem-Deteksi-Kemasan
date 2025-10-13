@@ -15,10 +15,10 @@ st.markdown(
         width: 250px !important;
     }
     
-    /* Mengubah warna tombol terakhir di sidebar menjadi merah (tombol logout) */
+    /* Mengubah warna tombol terakhir di sidebar menjadi hitam (tombol logout) */
     [data-testid="stSidebar"] .stButton:last-child button {
         background-color: #FF4B4B;
-        color: white;
+        color: blue;
     }
 
     /* Mengatur font dan perataan tengah untuk judul utama */
