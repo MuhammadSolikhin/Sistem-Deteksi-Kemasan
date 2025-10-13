@@ -72,7 +72,7 @@ st.markdown(
     color: white !important;
     border-radius: 6px !important;
     font-size: 0.8em !important;
-    padding: 2px 2px !important;
+    padding: 3px 5px !important;
 }
     div[data-testid="stSidebar"] button[kind="secondary"]:hover {
     background-color: #e03e3e !important;
